@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes, useNavigate } from 'react-router';
 import { useAuth } from './auth/AuthProvider';
 import { RequireRole } from './auth/RequireRole';
+import AdminUsersPage from './pages/AdminUsersPage';
 import LoginPage from './pages/LoginPage';
 import VotePage from './pages/VotePage';
 
@@ -32,7 +33,7 @@ export default function App() {
         <Route path="/vote" element={<VotePage />} />
       </Route>
       <Route element={<RequireRole role="admin" />}>
-        <Route path="/admin/users" element={<Placeholder title="Admin · Users" />} />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
         <Route path="/admin/results" element={<Placeholder title="Admin · Results" />} />
       </Route>
     </Routes>
