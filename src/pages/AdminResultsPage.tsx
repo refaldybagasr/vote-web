@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { getResults } from '../api/results';
+import { createCandidate } from '../api/votes';
 import { getErrorMessage } from '../api/error-message';
 import type { ResultsResponse } from '../api/types';
 
@@ -10,6 +11,10 @@ export default function AdminResultsPage() {
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [newCandidateName, setNewCandidateName] = useState('');
+  const [addError, setAddError] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -65,9 +70,51 @@ export default function AdminResultsPage() {
     };
   }, []);
 
+  async function handleAddCandidate(event: FormEvent) {
+    event.preventDefault();
+    setAddError(null);
+    setAdding(true);
+    try {
+      await createCandidate(newCandidateName);
+      setNewCandidateName('');
+      const result = await getResults();
+      setData(result);
+      setLastUpdated(new Date());
+    } catch (err) {
+      setAddError(getErrorMessage(err));
+    } finally {
+      setAdding(false);
+    }
+  }
+
   return (
     <div className="mx-auto max-w-2xl p-6">
       <h1 className="text-xl font-semibold">Admin · Results</h1>
+
+      <form onSubmit={(event) => void handleAddCandidate(event)} className="mt-4 flex items-end gap-3">
+        <label className="flex flex-col gap-1 text-sm">
+          Add candidate
+          <input
+            value={newCandidateName}
+            onChange={(event) => setNewCandidateName(event.target.value)}
+            placeholder="Candidate name"
+            className="rounded border px-3 py-2"
+            required
+          />
+        </label>
+        <button
+          type="submit"
+          disabled={adding}
+          className="rounded bg-slate-900 px-3 py-2 text-sm text-white disabled:opacity-50"
+        >
+          {adding ? 'Adding…' : 'Add'}
+        </button>
+      </form>
+      {addError && (
+        <p role="alert" className="mt-2 text-sm text-red-600">
+          {addError}
+        </p>
+      )}
 
       {error && (
         <p role="alert" className="mt-4 text-sm text-red-600">

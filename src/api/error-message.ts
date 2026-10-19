@@ -10,6 +10,7 @@ const FRIENDLY_MESSAGES: Record<string, string> = {
   CANNOT_MODIFY_SELF: 'You cannot do that to your own account.',
   LAST_ADMIN: 'This is the last active admin and cannot be changed.',
   STALE_UPDATE: 'This user was changed by someone else. Refresh the list and try again.',
+  CANDIDATE_NAME_TAKEN: 'A candidate with this name already exists.',
 };
 
 const FALLBACK_MESSAGE = 'Something went wrong. Please try again.';

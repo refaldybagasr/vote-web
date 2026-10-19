@@ -6,6 +6,11 @@ export async function listCandidates(): Promise<Candidate[]> {
   return response.data;
 }
 
+export async function createCandidate(name: string): Promise<Candidate> {
+  const response = await apiClient.post<Candidate>('/candidates', { name });
+  return response.data;
+}
+
 export async function getMyVoteStatus(): Promise<VoteStatus> {
   const response = await apiClient.get<VoteStatus>('/votes/me');
   return response.data;
