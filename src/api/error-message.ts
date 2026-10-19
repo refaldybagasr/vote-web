@@ -4,6 +4,8 @@ import type { ApiErrorBody } from './types';
 const FRIENDLY_MESSAGES: Record<string, string> = {
   INVALID_CREDENTIALS: 'Incorrect username or password.',
   RATE_LIMITED: 'Too many attempts. Please wait a moment and try again.',
+  ALREADY_VOTED: 'You already voted for someone else.',
+  CANDIDATE_NOT_FOUND: 'That candidate no longer exists. Please pick another one.',
 };
 
 const FALLBACK_MESSAGE = 'Something went wrong. Please try again.';

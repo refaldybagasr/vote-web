@@ -17,3 +17,21 @@ export interface ApiErrorBody {
     message: string;
   };
 }
+
+export interface Candidate {
+  id: string;
+  name: string;
+}
+
+export interface Vote {
+  candidateId: string;
+  candidateName: string;
+  createdAt: string;
+}
+
+export interface VoteStatus {
+  hasVoted: boolean;
+  vote: Vote | null;
+}
+
+export type CastVoteRequest = { candidateId: string } | { name: string };

@@ -2,6 +2,7 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router';
 import { useAuth } from './auth/AuthProvider';
 import { RequireRole } from './auth/RequireRole';
 import LoginPage from './pages/LoginPage';
+import VotePage from './pages/VotePage';
 
 function Placeholder({ title }: { title: string }) {
   const { user, logout } = useAuth();
@@ -28,7 +29,7 @@ export default function App() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route element={<RequireRole role="user" />}>
-        <Route path="/vote" element={<Placeholder title="Vote" />} />
+        <Route path="/vote" element={<VotePage />} />
       </Route>
       <Route element={<RequireRole role="admin" />}>
         <Route path="/admin/users" element={<Placeholder title="Admin · Users" />} />
