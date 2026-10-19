@@ -65,3 +65,15 @@ export interface UpdateUserRequest {
   role?: UserRole;
   isActive?: boolean;
 }
+
+export interface CandidateResult {
+  candidateId: string;
+  name: string;
+  votes: number;
+  percentage: number;
+}
+
+export interface ResultsResponse {
+  totalVotes: number;
+  results: CandidateResult[];
+}
