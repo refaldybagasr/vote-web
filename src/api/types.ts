@@ -35,3 +35,33 @@ export interface VoteStatus {
 }
 
 export type CastVoteRequest = { candidateId: string } | { name: string };
+
+export interface AdminUser {
+  id: string;
+  username: string;
+  role: UserRole;
+  isActive: boolean;
+  hasVoted: boolean;
+  createdAt: string;
+  version: number;
+}
+
+export interface UserListResponse {
+  items: AdminUser[];
+  page: number;
+  limit: number;
+  total: number;
+}
+
+export interface CreateUserRequest {
+  username: string;
+  password: string;
+  role: UserRole;
+}
+
+export interface UpdateUserRequest {
+  version: number;
+  password?: string;
+  role?: UserRole;
+  isActive?: boolean;
+}

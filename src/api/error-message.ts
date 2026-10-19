@@ -6,6 +6,10 @@ const FRIENDLY_MESSAGES: Record<string, string> = {
   RATE_LIMITED: 'Too many attempts. Please wait a moment and try again.',
   ALREADY_VOTED: 'You already voted for someone else.',
   CANDIDATE_NOT_FOUND: 'That candidate no longer exists. Please pick another one.',
+  USERNAME_TAKEN: 'That username is already taken.',
+  CANNOT_MODIFY_SELF: 'You cannot do that to your own account.',
+  LAST_ADMIN: 'This is the last active admin and cannot be changed.',
+  STALE_UPDATE: 'This user was changed by someone else. Refresh the list and try again.',
 };
 
 const FALLBACK_MESSAGE = 'Something went wrong. Please try again.';
