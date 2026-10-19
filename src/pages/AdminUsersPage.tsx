@@ -1,5 +1,4 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
-import { useNavigate } from 'react-router';
 import { useAuth } from '../auth/AuthProvider';
 import { createUser, deleteUser, listUsers, updateUser } from '../api/users';
 import { getErrorMessage } from '../api/error-message';
@@ -8,8 +7,7 @@ import type { AdminUser, UserRole } from '../api/types';
 const PAGE_SIZE = 10;
 
 export default function AdminUsersPage() {
-  const { user: currentUser, logout } = useAuth();
-  const navigate = useNavigate();
+  const { user: currentUser } = useAuth();
 
   const [page, setPage] = useState(1);
   const [items, setItems] = useState<AdminUser[]>([]);
@@ -79,19 +77,9 @@ export default function AdminUsersPage() {
     }
   }
 
-  async function handleLogout() {
-    await logout();
-    navigate('/login', { replace: true });
-  }
-
   return (
     <div className="mx-auto max-w-4xl p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Admin · Users</h1>
-        <button onClick={handleLogout} className="text-sm underline">
-          Log out ({currentUser?.username})
-        </button>
-      </div>
+      <h1 className="text-xl font-semibold">Admin · Users</h1>
 
       <form onSubmit={handleCreate} className="mt-6 flex flex-wrap items-end gap-3 rounded border p-4">
         <label className="flex flex-col gap-1 text-sm">
