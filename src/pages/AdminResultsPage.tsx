@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { useAuth } from '../auth/AuthProvider';
 import { getResults } from '../api/results';
 import { getErrorMessage } from '../api/error-message';
 import type { ResultsResponse } from '../api/types';
@@ -8,9 +6,6 @@ import type { ResultsResponse } from '../api/types';
 const POLL_INTERVAL_MS = 5000;
 
 export default function AdminResultsPage() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
   const [data, setData] = useState<ResultsResponse | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [loading, setLoading] = useState(true);
@@ -70,19 +65,9 @@ export default function AdminResultsPage() {
     };
   }, []);
 
-  async function handleLogout() {
-    await logout();
-    navigate('/login', { replace: true });
-  }
-
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Admin · Results</h1>
-        <button onClick={() => void handleLogout()} className="text-sm underline">
-          Log out ({user?.username})
-        </button>
-      </div>
+      <h1 className="text-xl font-semibold">Admin · Results</h1>
 
       {error && (
         <p role="alert" className="mt-4 text-sm text-red-600">
