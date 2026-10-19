@@ -1,28 +1,9 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router';
-import { useAuth } from './auth/AuthProvider';
+import { Navigate, Route, Routes } from 'react-router';
 import { RequireRole } from './auth/RequireRole';
+import AdminResultsPage from './pages/AdminResultsPage';
 import AdminUsersPage from './pages/AdminUsersPage';
 import LoginPage from './pages/LoginPage';
 import VotePage from './pages/VotePage';
-
-function Placeholder({ title }: { title: string }) {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  async function handleLogout() {
-    await logout();
-    navigate('/login', { replace: true });
-  }
-
-  return (
-    <div className="flex items-center justify-between p-8">
-      <h1 className="text-xl font-semibold">{title}</h1>
-      <button onClick={handleLogout} className="text-sm underline">
-        Log out{user ? ` (${user.username})` : ''}
-      </button>
-    </div>
-  );
-}
 
 export default function App() {
   return (
@@ -34,7 +15,7 @@ export default function App() {
       </Route>
       <Route element={<RequireRole role="admin" />}>
         <Route path="/admin/users" element={<AdminUsersPage />} />
-        <Route path="/admin/results" element={<Placeholder title="Admin · Results" />} />
+        <Route path="/admin/results" element={<AdminResultsPage />} />
       </Route>
     </Routes>
   );
